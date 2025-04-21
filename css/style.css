@@ -1,0 +1,425 @@
+/* 基础样式 */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* 页面容器 */
+.page {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.page4-box {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 照片墙容器 */
+.photo-wall-container {
+    width: 100%;
+    max-width: 945px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 照片墙布局 */
+.photo-wall {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 15px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.photo-item {
+    width: 100%;
+    aspect-ratio: 1/1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #f5f5f5;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.photo-item:hover img {
+    transform: scale(1.05);
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 945px) {
+    .photo-wall {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .photo-wall {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .photo-wall {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(12, 1fr);
+    }
+}
+
+/* 移动端性能优化 */
+@media screen and (max-width: 768px) {
+    .photo-wall {
+        gap: 8px;
+        padding: 10px 5px;
+    }
+
+    .photo-item {
+        width: 250px;
+        height: 250px;
+        border-radius: 6px;
+        /* 在移动端禁用一些动画效果以提升性能 */
+        transition: none;
+    }
+
+    /* 在移动端禁用悬停效果 */
+    .photo-item:hover {
+        transform: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo-item:hover img {
+        transform: none;
+    }
+
+    /* 优化移动端字体大小 */
+    html {
+        font-size: 14px;
+    }
+}
+
+/* 更小屏幕的手机优化 */
+@media screen and (max-width: 480px) {
+    .photo-item {
+        width: 200px;
+        height: 200px;
+        border-radius: 5px;
+    }
+
+    html {
+        font-size: 12px;
+    }
+}
+
+/* 优化图片加载 */
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* 添加加载动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.photo-item {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.page4-text {
+    text-align: center;
+    margin-top: 20px;
+    color: #fff;
+}
+
+.page4-text h1 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+@media screen and (max-width: 768px) {
+    .page4-text h1 {
+        font-size: 18px;
+    }
+}
+
+.masonry-wall {
+    column-count: 4;
+    column-gap: 16px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+}
+
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.masonry-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.masonry-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.masonry-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 0 0 12px 12px;
+}
+
+.masonry-item:hover::after {
+    opacity: 1;
+}
+
+/* 响应式布局 */
+@media screen and (max-width: 1200px) {
+    .masonry-wall {
+        column-count: 3;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .masonry-wall {
+        column-count: 2;
+        column-gap: 12px;
+        padding: 15px;
+    }
+    
+    .masonry-item {
+        margin-bottom: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .masonry-wall {
+        column-count: 1;
+        padding: 10px;
+    }
+    
+    .masonry-item {
+        margin-bottom: 10px;
+    }
+    
+    .masonry-item:hover {
+        transform: none;
+    }
+}
+
+/* 照片加载动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.masonry-item {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.masonry-item:nth-child(2n) {
+    animation-delay: 0.2s;
+}
+
+.masonry-item:nth-child(3n) {
+    animation-delay: 0.4s;
+}
+
+.memory-wall {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.memory-item {
+    background: #fff;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.memory-item img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.memory-item p {
+    color: #333;
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.memory-item p b {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #000;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
+    .memory-wall {
+        padding: 15px;
+    }
+
+    .memory-item {
+        padding: 12px;
+        margin-bottom: 20px;
+    }
+
+    .memory-item img {
+        max-width: 100%;
+    }
+
+    .memory-item p {
+        font-size: 14px;
+    }
+
+    .memory-item p b {
+        font-size: 16px;
+    }
+}
+
+/* 添加渐入动画 */
+.memory-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.memory-item:nth-child(2n) {
+    animation-delay: 0.2s;
+}
+
+.memory-item:nth-child(3n) {
+    animation-delay: 0.3s;
+}
+
+.text {
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.text p {
+    margin: 15px 0;
+    font-size: 18px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.text p:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.text p:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@media screen and (max-width: 768px) {
+    .text {
+        padding: 15px;
+    }
+    
+    .text p {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .text {
+        padding: 10px;
+    }
+    
+    .text p {
+        font-size: 14px;
+    }
+}
+
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 300px);
+    grid-template-rows: repeat(3, 300px);
+    gap: 15px;
+    padding: 20px;
+    max-width: 1245px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+} 
